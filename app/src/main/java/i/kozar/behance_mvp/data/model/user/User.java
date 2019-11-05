@@ -15,73 +15,73 @@ public class User {
     @PrimaryKey
     @ColumnInfo(name = "id")
     @SerializedName("id")
-    private int mId;
+    private int id;
 
     @ColumnInfo(name = "username")
     @SerializedName("username")
-    private String mUsername;
+    private String username;
 
     @ColumnInfo(name = "location")
     @SerializedName("location")
-    private String mLocation;
+    private String location;
 
     @ColumnInfo(name = "created_on")
     @SerializedName("created_on")
-    private long mCreatedOn;
+    private long createdOn;
 
     @SerializedName("images")
     @Ignore
-    private Image mImage;
+    private Image image;
 
     @ColumnInfo(name = "display_name")
     @SerializedName("display_name")
-    private String mDisplayName;
+    private String displayName;
 
     public int getId() {
-        return mId;
+        return id;
     }
 
     public void setId(int id) {
-        mId = id;
+        this.id = id;
     }
 
     public String getUsername() {
-        return mUsername;
+        return username;
     }
 
     public void setUsername(@NonNull String username) {
-        mUsername = username;
+        this.username = username;
     }
 
     public String getLocation() {
-        return mLocation;
+        return location;
     }
 
     public void setLocation(@NonNull String location) {
-        mLocation = location;
+        this.location = location;
     }
 
     public long getCreatedOn() {
-        return mCreatedOn;
+        return createdOn;
     }
 
     public void setCreatedOn(long createdOn) {
-        mCreatedOn = createdOn;
+        this.createdOn = createdOn;
     }
 
     public Image getImage() {
-        return mImage;
+        return image;
     }
 
     public void setImage(@NonNull Image image) {
-        mImage = image;
+        this.image = image;
     }
 
     public String getDisplayName() {
-        return mDisplayName;
+        return displayName;
     }
 
     public void setDisplayName(@NonNull String displayName) {
-        mDisplayName = displayName;
+        this.displayName = displayName;
     }
 }

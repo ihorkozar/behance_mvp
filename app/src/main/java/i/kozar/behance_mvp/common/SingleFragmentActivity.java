@@ -29,7 +29,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
     }
 
     protected abstract Fragment getFragment();
-    
+
     @Override
     public Storage obtainStorage() {
         return ((AppDelegate) getApplicationContext()).getStorage();

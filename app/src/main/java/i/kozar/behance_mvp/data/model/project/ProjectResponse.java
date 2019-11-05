@@ -7,13 +7,13 @@ import java.util.List;
 public class ProjectResponse implements Serializable {
 
     @SerializedName("projects")
-    private List<Project> mProjects;
+    private List<Project> projects;
 
     public List<Project> getProjects() {
-        return mProjects;
+        return projects;
     }
 
     public void setProjects(List<Project> projects) {
-        mProjects = projects;
+        this.projects = projects;
     }
 }

@@ -18,61 +18,61 @@ public class Project implements Serializable {
     @PrimaryKey
     @ColumnInfo(name = "id")
     @SerializedName("id")
-    private int mId;
+    private int id;
 
     @ColumnInfo(name = "name")
     @SerializedName("name")
-    private String mName;
+    private String name;
 
     @ColumnInfo(name = "published_on")
     @SerializedName("published_on")
-    private long mPublishedOn;
+    private long publishedOn;
 
     @SerializedName("covers")
     @Ignore
-    private Cover mCover;
+    private Cover cover;
 
     @SerializedName("owners")
     @Ignore
-    private List<Owner> mOwners;
+    private List<Owner> owners;
 
     public int getId() {
-        return mId;
+        return id;
     }
 
     public void setId(int id) {
-        mId = id;
+        this.id = id;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(@NonNull String name) {
-        mName = name;
+        this.name = name;
     }
 
     public long getPublishedOn() {
-        return mPublishedOn;
+        return publishedOn;
     }
 
     public void setPublishedOn(long publishedOn) {
-        mPublishedOn = publishedOn;
+        this.publishedOn = publishedOn;
     }
 
     public Cover getCover() {
-        return mCover;
+        return cover;
     }
 
     public void setCover(@NonNull Cover cover) {
-        mCover = cover;
+        this.cover = cover;
     }
 
     public List<Owner> getOwners() {
-        return mOwners;
+        return owners;
     }
 
     public void setOwners(@NonNull List<Owner> owners) {
-        mOwners = owners;
+        this.owners = owners;
     }
 }

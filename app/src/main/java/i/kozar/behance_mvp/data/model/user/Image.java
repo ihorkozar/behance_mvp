@@ -17,36 +17,36 @@ public class Image {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    private int mId;
+    private int id;
 
     @ColumnInfo(name = "photo_url")
     @SerializedName("230")
-    private String mPhotoUrl;
+    private String photoUrl;
 
     @ColumnInfo(name = "user_id")
-    private int mUserId;
+    private int userId;
 
     public int getId() {
-        return mId;
+        return id;
     }
 
     public void setId(int id) {
-        mId = id;
+        this.id = id;
     }
 
     public String getPhotoUrl() {
-        return mPhotoUrl;
+        return photoUrl;
     }
 
     public void setPhotoUrl(@Nullable String photoUrl) {
-        mPhotoUrl = photoUrl;
+        this.photoUrl = photoUrl;
     }
 
     public int getUserId() {
-        return mUserId;
+        return userId;
     }
 
     public void setUserId(int userId) {
-        mUserId = userId;
+        this.userId = userId;
     }
 }

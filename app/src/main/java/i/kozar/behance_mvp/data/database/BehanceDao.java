@@ -33,16 +33,16 @@ public interface BehanceDao {
     @Query("select * from project")
     List<Project> getProjects();
 
-    @Query("select * from cover where project_id = :projectId")
+    @Query("select * from cover where projectId = :projectId")
     Cover getCoverFromProject(int projectId);
 
-    @Query("select * from owner where project_id = :projectId")
+    @Query("select * from owner where projectId = :projectId")
     List<Owner> getOwnersFromProject(int projectId);
 
     @Query("select * from user where username = :userName")
     User getUserByName(String userName);
 
-    @Query("select * from image where user_id = :userId")
+    @Query("select * from image where userId = :userId")
     Image getImageFromUser(int userId);
 
     @Query("delete from owner")

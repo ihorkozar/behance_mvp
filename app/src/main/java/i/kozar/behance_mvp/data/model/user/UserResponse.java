@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 public class UserResponse {
 
     @SerializedName("user")
-    private User mUser;
+    private User user;
 
     public User getUser() {
-        return mUser;
+        return user;
     }
 
     public void setUser(User user) {
-        mUser = user;
+        this.user = user;
     }
 }

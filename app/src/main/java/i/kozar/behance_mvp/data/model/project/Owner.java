@@ -20,36 +20,36 @@ public class Owner implements Serializable {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    private int mId;
+    private int id;
 
     @ColumnInfo(name = "username")
     @SerializedName("username")
-    private String mUsername;
+    private String username;
 
     @ColumnInfo(name = "project_id")
-    private int mProjectId;
+    private int projectId;
 
     public int getId() {
-        return mId;
+        return id;
     }
 
     public void setId(int id) {
-        mId = id;
+        this.id = id;
     }
 
     public String getUsername() {
-        return mUsername;
+        return username;
     }
 
     public void setUsername(@NonNull String username) {
-        mUsername = username;
+        this.username = username;
     }
 
     public int getProjectId() {
-        return mProjectId;
+        return projectId;
     }
 
     public void setProjectId(int projectId) {
-        mProjectId = projectId;
+        this.projectId = projectId;
     }
 }

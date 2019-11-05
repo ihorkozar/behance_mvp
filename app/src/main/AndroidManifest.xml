@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="i.kozar.behance_mvp">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
     <application
+        android:name=".AppDelegate"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.profile.ProfileActivity" />
+        <activity android:name=".ui.projects.user_projects.UserProjectsActivity"/>
+
     </application>
 
 </manifest>

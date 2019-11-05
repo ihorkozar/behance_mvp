@@ -2,10 +2,8 @@ package i.kozar.behance_mvp.data;
 
 
 import androidx.core.util.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import i.kozar.behance_mvp.data.database.BehanceDao;
 import i.kozar.behance_mvp.data.model.project.Cover;
 import i.kozar.behance_mvp.data.model.project.Owner;
@@ -17,22 +15,22 @@ import i.kozar.behance_mvp.data.model.user.UserResponse;
 
 public class Storage {
 
-    private BehanceDao mBehanceDao;
+    private BehanceDao behanceDao;
 
     public Storage(BehanceDao behanceDao) {
-        mBehanceDao = behanceDao;
+        this.behanceDao = behanceDao;
     }
 
     public void insertProjects(ProjectResponse response) {
         List<Project> projects = response.getProjects();
-        mBehanceDao.insertProjects(projects);
+        behanceDao.insertProjects(projects);
 
         Pair<List<Cover>, List<Owner>> assembled = assemble(projects);
 
-        mBehanceDao.clearCoverTable();
-        mBehanceDao.insertCovers(assembled.first);
-        mBehanceDao.clearOwnerTable();
-        mBehanceDao.insertOwners(assembled.second);
+        behanceDao.clearCoverTable();
+        behanceDao.insertCovers(assembled.first);
+        behanceDao.clearOwnerTable();
+        behanceDao.insertOwners(assembled.second);
     }
 
 
@@ -56,10 +54,10 @@ public class Storage {
     }
 
     public ProjectResponse getProjects() {
-        List<Project> projects = mBehanceDao.getProjects();
+        List<Project> projects = behanceDao.getProjects();
         for (Project project : projects) {
-            project.setCover(mBehanceDao.getCoverFromProject(project.getId()));
-            project.setOwners(mBehanceDao.getOwnersFromProject(project.getId()));
+            project.setCover(behanceDao.getCoverFromProject(project.getId()));
+            project.setOwners(behanceDao.getOwnersFromProject(project.getId()));
         }
 
         ProjectResponse response = new ProjectResponse();
@@ -74,13 +72,13 @@ public class Storage {
         image.setId(user.getId());
         image.setUserId(user.getId());
 
-        mBehanceDao.insertUser(user);
-        mBehanceDao.insertImage(image);
+        behanceDao.insertUser(user);
+        behanceDao.insertImage(image);
     }
 
     public UserResponse getUser(String username) {
-        User user = mBehanceDao.getUserByName(username);
-        Image image = mBehanceDao.getImageFromUser(user.getId());
+        User user = behanceDao.getUserByName(username);
+        Image image = behanceDao.getImageFromUser(user.getId());
         user.setImage(image);
 
         UserResponse response = new UserResponse();

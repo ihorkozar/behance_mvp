@@ -21,36 +21,36 @@ public class Cover implements Serializable {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    private int mId;
+    private int id;
 
     @ColumnInfo(name = "photo_url")
     @SerializedName("202")
-    private String mPhotoUrl;
+    private String photoUrl;
 
     @ColumnInfo(name = "project_id")
-    private int mProjectId;
+    private int projectId;
 
     public int getId() {
-        return mId;
+        return id;
     }
 
     public void setId(int id) {
-        mId = id;
+        this.id = id;
     }
 
     public String getPhotoUrl() {
-        return mPhotoUrl;
+        return photoUrl;
     }
 
     public void setPhotoUrl(@NonNull String photoUrl) {
-        mPhotoUrl = photoUrl;
+        this.photoUrl = photoUrl;
     }
 
     public int getProjectId() {
-        return mProjectId;
+        return projectId;
     }
 
     public void setProjectId(int projectId) {
-        mProjectId = projectId;
+        this.projectId = projectId;
     }
 }
