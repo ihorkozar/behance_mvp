@@ -11,11 +11,9 @@ import moxy.InjectViewState;
 @InjectViewState
 public class UserProjectsPresenter extends BasePresenter<UserProjectsView> {
 
-    private UserProjectsView userProjectsView;
     private Storage storage;
 
-    public UserProjectsPresenter(UserProjectsView userProjectsView, Storage storage) {
-        this.userProjectsView = userProjectsView;
+    public UserProjectsPresenter(Storage storage) {
         this.storage = storage;
     }
 
@@ -27,10 +25,10 @@ public class UserProjectsPresenter extends BasePresenter<UserProjectsView> {
                         ApiUtils.NETWORK_EXCEPTIONS.contains(throwable.getClass()) ? storage.getProjects() : null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> userProjectsView.showLoading())
-                .doFinally(() -> userProjectsView.hideLoading())
+                .doOnSubscribe(disposable -> getViewState().showLoading())
+                .doFinally(() -> getViewState().hideLoading())
                 .subscribe(
-                        response -> userProjectsView.showUserProjects(response.getProjects()),
-                        throwable -> userProjectsView.showError()));
+                        response -> getViewState().showUserProjects(response.getProjects()),
+                        throwable -> getViewState().showError()));
     }
 }

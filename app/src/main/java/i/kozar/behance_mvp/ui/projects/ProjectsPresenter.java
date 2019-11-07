@@ -12,11 +12,9 @@ import moxy.InjectViewState;
 
 @InjectViewState
 public class ProjectsPresenter extends BasePresenter<ProjectsView> {
-    private ProjectsView projectsView;
     private Storage storage;
 
-    public ProjectsPresenter(ProjectsView projectsView, Storage storage) {
-        this.projectsView = projectsView;
+    public ProjectsPresenter(Storage storage) {
         this.storage = storage;
     }
 
@@ -27,14 +25,14 @@ public class ProjectsPresenter extends BasePresenter<ProjectsView> {
                         ApiUtils.NETWORK_EXCEPTIONS.contains(throwable.getClass()) ? storage.getProjects() : null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> projectsView.showLoading())
-                .doFinally(() -> projectsView.hideLoading())
+                .doOnSubscribe(disposable -> getViewState().showLoading())
+                .doFinally(() -> getViewState().hideLoading())
                 .subscribe(
-                        response -> projectsView.showProjects(response.getProjects()),
-                        throwable -> projectsView.showError()));
+                        response -> getViewState().showProjects(response.getProjects()),
+                        throwable -> getViewState().showError()));
     }
 
     public void openProfileFragment(String username) {
-        projectsView.openProfileFragment(username);
+        getViewState().openProfileFragment(username);
     }
 }

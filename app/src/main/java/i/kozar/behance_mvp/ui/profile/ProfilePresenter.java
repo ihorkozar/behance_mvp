@@ -10,11 +10,10 @@ import moxy.InjectViewState;
 
 @InjectViewState
 public class ProfilePresenter extends BasePresenter<ProfileView> {
-    private ProfileView profileView;
+
     private Storage storage;
 
-    public ProfilePresenter(ProfileView profileView, Storage storage) {
-        this.profileView = profileView;
+    public ProfilePresenter(Storage storage) {
         this.storage = storage;
     }
 
@@ -27,14 +26,14 @@ public class ProfilePresenter extends BasePresenter<ProfileView> {
                                 storage.getUser(username) :
                                 null)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> profileView.showLoading())
-                .doFinally(() -> profileView.hideLoading())
+                .doOnSubscribe(disposable -> getViewState().showLoading())
+                .doFinally(() -> getViewState().hideLoading())
                 .subscribe(
-                        response -> profileView.showProfile(response.getUser()),
-                        throwable -> profileView.showError()));
+                        response -> getViewState().showProfile(response.getUser()),
+                        throwable -> getViewState().showError()));
     }
 
     public void openUserProjectsFragment(String username) {
-        profileView.openUserProjectsFragment(username);
+        getViewState().openUserProjectsFragment(username);
     }
 }

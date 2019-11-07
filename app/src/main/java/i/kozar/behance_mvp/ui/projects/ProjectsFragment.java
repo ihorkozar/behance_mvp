@@ -35,8 +35,14 @@ public class ProjectsFragment extends PresenterFragment
 
     @ProvidePresenter
     ProjectsPresenter providePresenter(){
-        return new ProjectsPresenter(this, storage);
+        return new ProjectsPresenter(storage);
     }
+
+    @Override
+    protected ProjectsPresenter getPresenter() {
+        return projectsPresenter;
+    }
+
 
     public static ProjectsFragment newInstance() {
         return new ProjectsFragment();
@@ -96,11 +102,6 @@ public class ProjectsFragment extends PresenterFragment
     @Override
     public void onRefreshData() {
         projectsPresenter.getProjects();
-    }
-
-    @Override
-    protected ProjectsPresenter getPresenter() {
-        return projectsPresenter;
     }
 
     @Override

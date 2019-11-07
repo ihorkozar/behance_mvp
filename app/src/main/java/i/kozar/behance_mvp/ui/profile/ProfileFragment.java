@@ -31,23 +31,18 @@ public class ProfileFragment extends PresenterFragment
     public static final String PROFILE_KEY = "PROFILE_KEY";
 
     private RefreshOwner refreshOwner;
-    private View errorView;
-    private View profileView;
+    private View errorView, profileView;
     private String username;
     private Storage storage;
     private Button button;
-
     private ImageView profileImage;
-    private TextView profileName;
-    private TextView profileCreatedOn;
-    private TextView profileLocation;
-
+    private TextView profileName, profileCreatedOn, profileLocation;
     @InjectPresenter
     ProfilePresenter profilePresenter;
 
     @ProvidePresenter
     ProfilePresenter provideProfilePresentor() {
-        return new ProfilePresenter(this, storage);
+        return new ProfilePresenter(storage);
     }
 
     @Override
@@ -66,7 +61,9 @@ public class ProfileFragment extends PresenterFragment
     public void onAttach(Context context) {
         super.onAttach(context);
         storage = context instanceof Storage.StorageOwner ? ((Storage.StorageOwner) context).obtainStorage() : null;
-        refreshOwner = context instanceof RefreshOwner ? (RefreshOwner) context : null;
+        if (context instanceof RefreshOwner) {
+            refreshOwner = ((RefreshOwner) context);
+        }
     }
 
     @Nullable

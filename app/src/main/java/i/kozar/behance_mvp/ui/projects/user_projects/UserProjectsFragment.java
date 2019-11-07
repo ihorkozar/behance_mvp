@@ -26,18 +26,18 @@ public class UserProjectsFragment extends PresenterFragment
 
     public static final String UserProjects_KEY = "UserProjects_KEY";
 
-    private RecyclerView mRecyclerView;
-    private RefreshOwner mRefreshOwner;
-    private View mErrorView;
-    private Storage mStorage;
-    private ProjectsAdapter mProjectsAdapter;
+    private RecyclerView recyclerView;
+    private RefreshOwner refreshOwner;
+    private View errorView;
+    private Storage storage;
+    private ProjectsAdapter projectsAdapter;
     private String username;
     @InjectPresenter
     UserProjectsPresenter userProjectsPresenter;
 
     @ProvidePresenter
     UserProjectsPresenter providePresenter(){
-        return new UserProjectsPresenter(this, mStorage);
+        return new UserProjectsPresenter(storage);
     }
 
     public static UserProjectsFragment newInstance(Bundle args) {
@@ -50,11 +50,11 @@ public class UserProjectsFragment extends PresenterFragment
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof Storage.StorageOwner) {
-            mStorage = ((Storage.StorageOwner) context).obtainStorage();
+            storage = ((Storage.StorageOwner) context).obtainStorage();
         }
 
         if (context instanceof RefreshOwner) {
-            mRefreshOwner = ((RefreshOwner) context);
+            refreshOwner = ((RefreshOwner) context);
         }
     }
 
@@ -66,8 +66,8 @@ public class UserProjectsFragment extends PresenterFragment
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mRecyclerView = view.findViewById(R.id.recycler);
-        mErrorView = view.findViewById(R.id.errorView);
+        recyclerView = view.findViewById(R.id.recycler);
+        errorView = view.findViewById(R.id.errorView);
     }
 
     @Override
@@ -81,9 +81,9 @@ public class UserProjectsFragment extends PresenterFragment
         if (getActivity() != null) {
             getActivity().setTitle(R.string.projects + username);
         }
-        mProjectsAdapter = new ProjectsAdapter(this);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mProjectsAdapter);
+        projectsAdapter = new ProjectsAdapter(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(projectsAdapter);
 
         onRefreshData();
     }
@@ -100,32 +100,32 @@ public class UserProjectsFragment extends PresenterFragment
 
     @Override
     public void onDetach() {
-        mStorage = null;
-        mRefreshOwner = null;
+        storage = null;
+        refreshOwner = null;
         super.onDetach();
     }
 
     @Override
     public void showUserProjects(List<Project> projects) {
-        mErrorView.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.VISIBLE);
-        mProjectsAdapter.addData(projects, true);
+        errorView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        projectsAdapter.addData(projects, true);
     }
 
     @Override
     public void showLoading() {
-        mRefreshOwner.setRefreshState(true);
+        refreshOwner.setRefreshState(true);
     }
 
     @Override
     public void hideLoading() {
-        mRefreshOwner.setRefreshState(false);
+        refreshOwner.setRefreshState(false);
     }
 
     @Override
     public void showError() {
-        mErrorView.setVisibility(View.VISIBLE);
-        mRecyclerView.setVisibility(View.GONE);
+        errorView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
     }
 
     @Override
