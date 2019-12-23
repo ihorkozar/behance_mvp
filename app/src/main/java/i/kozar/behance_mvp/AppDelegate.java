@@ -1,26 +1,25 @@
 package i.kozar.behance_mvp;
 
 import android.app.Application;
-import androidx.room.Room;
-import i.kozar.behance_mvp.data.Storage;
-import i.kozar.behance_mvp.data.database.BehanceDatabase;
+import i.kozar.behance_mvp.di.AppComponent;
+import i.kozar.behance_mvp.di.AppModule;
+import i.kozar.behance_mvp.di.DaggerAppComponent;
+import i.kozar.behance_mvp.di.NetworkModule;
 
 public class AppDelegate extends Application {
 
-    private Storage storage;
+    private static AppComponent appComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-        final BehanceDatabase database = Room.databaseBuilder(this, BehanceDatabase.class, "behance_database")
-                .fallbackToDestructiveMigration()
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .networkModule(new NetworkModule())
                 .build();
-
-        storage = new Storage(database.getBehanceDao());
     }
 
-    public Storage getStorage() {
-        return storage;
+    public static AppComponent getAppComponent(){
+        return appComponent;
     }
 }

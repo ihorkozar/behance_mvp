@@ -1,24 +1,35 @@
 package i.kozar.behance_mvp.ui.profile;
 
-
+import javax.inject.Inject;
 import i.kozar.behance_mvp.common.BasePresenter;
 import i.kozar.behance_mvp.data.Storage;
+import i.kozar.behance_mvp.data.api.BehanceApi;
+import i.kozar.behance_mvp.ui.projects.ProjectsView;
 import i.kozar.behance_mvp.utils.ApiUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import moxy.InjectViewState;
 
-@InjectViewState
-public class ProfilePresenter extends BasePresenter<ProfileView> {
 
-    private Storage storage;
+public class ProfilePresenter extends BasePresenter {
 
-    public ProfilePresenter(Storage storage) {
-        this.storage = storage;
+    private ProfileView profileView;
+    @Inject
+    Storage storage;
+    @Inject
+    BehanceApi behanceApi;
+
+    @Inject
+    public ProfilePresenter() {
+    }
+
+    public void setView(ProfileView view){
+        profileView = view;
     }
 
     public void getProfile(String username){
-        compositeDisposable.add(ApiUtils.getApiService().getUserInfo(username)
+        compositeDisposable.add(
+                behanceApi.getUserInfo(username)
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess(response -> storage.insertUser(response))
                 .onErrorReturn(throwable ->
@@ -26,14 +37,14 @@ public class ProfilePresenter extends BasePresenter<ProfileView> {
                                 storage.getUser(username) :
                                 null)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> getViewState().showLoading())
-                .doFinally(() -> getViewState().hideLoading())
+                .doOnSubscribe(disposable -> profileView.showLoading())
+                .doFinally(() -> profileView.hideLoading())
                 .subscribe(
-                        response -> getViewState().showProfile(response.getUser()),
-                        throwable -> getViewState().showError()));
+                        response -> profileView.showProfile(response.getUser()),
+                        throwable -> profileView.showError()));
     }
 
     public void openUserProjectsFragment(String username) {
-        getViewState().openUserProjectsFragment(username);
+        profileView.openUserProjectsFragment(username);
     }
 }

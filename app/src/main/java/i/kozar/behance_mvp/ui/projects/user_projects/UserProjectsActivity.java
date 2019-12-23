@@ -1,7 +1,5 @@
 package i.kozar.behance_mvp.ui.projects.user_projects;
 
-
-
 import i.kozar.behance_mvp.common.SingleFragmentActivity;
 
 public class UserProjectsActivity extends SingleFragmentActivity {

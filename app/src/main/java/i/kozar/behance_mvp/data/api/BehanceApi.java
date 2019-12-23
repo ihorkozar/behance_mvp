@@ -1,6 +1,5 @@
 package i.kozar.behance_mvp.data.api;
 
-
 import i.kozar.behance_mvp.data.model.project.ProjectResponse;
 import i.kozar.behance_mvp.data.model.user.UserResponse;
 import io.reactivex.Single;

@@ -10,6 +10,10 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import i.kozar.behance_mvp.AppDelegate;
 import i.kozar.behance_mvp.R;
 import i.kozar.behance_mvp.common.BasePresenter;
 import i.kozar.behance_mvp.common.PresenterFragment;
@@ -29,17 +33,16 @@ public class UserProjectsFragment extends PresenterFragment
     private RecyclerView recyclerView;
     private RefreshOwner refreshOwner;
     private View errorView;
-    private Storage storage;
     private ProjectsAdapter projectsAdapter;
     private String username;
-    @InjectPresenter
+    @Inject
     UserProjectsPresenter userProjectsPresenter;
 
-    @ProvidePresenter
+    /*@ProvidePresenter
     UserProjectsPresenter providePresenter(){
-        return new UserProjectsPresenter(storage);
+        return new UserProjectsPresenter();
     }
-
+*/
     public static UserProjectsFragment newInstance(Bundle args) {
         UserProjectsFragment userProjectsFragment = new UserProjectsFragment();
         userProjectsFragment.setArguments(args);
@@ -49,13 +52,16 @@ public class UserProjectsFragment extends PresenterFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof Storage.StorageOwner) {
-            storage = ((Storage.StorageOwner) context).obtainStorage();
-        }
 
         if (context instanceof RefreshOwner) {
             refreshOwner = ((RefreshOwner) context);
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        AppDelegate.getAppComponent().injectUserProjects(this);
     }
 
     @Nullable
@@ -81,6 +87,7 @@ public class UserProjectsFragment extends PresenterFragment
         if (getActivity() != null) {
             getActivity().setTitle(R.string.projects + username);
         }
+        userProjectsPresenter.setView(this);
         projectsAdapter = new ProjectsAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(projectsAdapter);
@@ -100,7 +107,6 @@ public class UserProjectsFragment extends PresenterFragment
 
     @Override
     public void onDetach() {
-        storage = null;
         refreshOwner = null;
         super.onDetach();
     }

@@ -1,6 +1,5 @@
 package i.kozar.behance_mvp.ui.profile;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.squareup.picasso.Picasso;
+
+import javax.inject.Inject;
+
+import i.kozar.behance_mvp.AppDelegate;
 import i.kozar.behance_mvp.R;
 import i.kozar.behance_mvp.common.PresenterFragment;
 import i.kozar.behance_mvp.common.RefreshOwner;
@@ -33,17 +36,18 @@ public class ProfileFragment extends PresenterFragment
     private RefreshOwner refreshOwner;
     private View errorView, profileView;
     private String username;
-    private Storage storage;
     private Button button;
     private ImageView profileImage;
     private TextView profileName, profileCreatedOn, profileLocation;
-    @InjectPresenter
+
+    @Inject
     ProfilePresenter profilePresenter;
 
-    @ProvidePresenter
+    /*@ProvidePresenter
     ProfilePresenter provideProfilePresentor() {
-        return new ProfilePresenter(storage);
+        return new ProfilePresenter();
     }
+    */
 
     @Override
     protected ProfilePresenter getPresenter() {
@@ -60,10 +64,15 @@ public class ProfileFragment extends PresenterFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        storage = context instanceof Storage.StorageOwner ? ((Storage.StorageOwner) context).obtainStorage() : null;
         if (context instanceof RefreshOwner) {
             refreshOwner = ((RefreshOwner) context);
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        AppDelegate.getAppComponent().injectProfile(this);
     }
 
     @Nullable
@@ -97,6 +106,7 @@ public class ProfileFragment extends PresenterFragment
             getActivity().setTitle(username);
         }
 
+        profilePresenter.setView(this);
         profileView.setVisibility(View.VISIBLE);
 
         onRefreshData();
@@ -109,7 +119,6 @@ public class ProfileFragment extends PresenterFragment
 
     @Override
     public void onDetach() {
-        storage = null;
         refreshOwner = null;
         super.onDetach();
     }
