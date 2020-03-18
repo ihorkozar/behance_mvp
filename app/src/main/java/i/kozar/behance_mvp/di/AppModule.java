@@ -18,13 +18,13 @@ public class AppModule {
     }
 
     @Provides
-    @Singleton
+    @CustomScope
     AppDelegate provideAppDelegate(){
         return appDelegate;
     }
 
     @Provides
-    @Singleton
+    @CustomScope
     Storage provideStorage(){
         final BehanceDatabase database = Room.databaseBuilder(appDelegate, BehanceDatabase.class, "behance_database")
                 .fallbackToDestructiveMigration()

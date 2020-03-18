@@ -24,7 +24,7 @@ public class NetworkModule {
     }
 
     @Provides
-    @Singleton
+    @CustomScope
     OkHttpClient provideClient() {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
         builder.addInterceptor(new ApiKeyInterceptor());
@@ -35,13 +35,13 @@ public class NetworkModule {
     }
 
     @Provides
-    @Singleton
+    @CustomScope
     Gson provideGson() {
         return new Gson();
     }
 
     @Provides
-    @Singleton
+    @CustomScope
     Retrofit provideRetrofit(Gson gson, OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.API_URL)
@@ -53,7 +53,7 @@ public class NetworkModule {
     }
 
     @Provides
-    @Singleton
+    @CustomScope
     BehanceApi provideApiService(Retrofit retrofit) {
        return retrofit.create(BehanceApi.class);
     }

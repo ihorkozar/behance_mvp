@@ -35,14 +35,10 @@ public class UserProjectsFragment extends PresenterFragment
     private View errorView;
     private ProjectsAdapter projectsAdapter;
     private String username;
-    @Inject
+
+    @InjectPresenter
     UserProjectsPresenter userProjectsPresenter;
 
-    /*@ProvidePresenter
-    UserProjectsPresenter providePresenter(){
-        return new UserProjectsPresenter();
-    }
-*/
     public static UserProjectsFragment newInstance(Bundle args) {
         UserProjectsFragment userProjectsFragment = new UserProjectsFragment();
         userProjectsFragment.setArguments(args);
@@ -58,11 +54,11 @@ public class UserProjectsFragment extends PresenterFragment
         }
     }
 
-    @Override
+    /*@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppDelegate.getAppComponent().injectUserProjects(this);
-    }
+    }*/
 
     @Nullable
     @Override
@@ -87,7 +83,7 @@ public class UserProjectsFragment extends PresenterFragment
         if (getActivity() != null) {
             getActivity().setTitle(R.string.projects + username);
         }
-        userProjectsPresenter.setView(this);
+        //userProjectsPresenter.setView(this);
         projectsAdapter = new ProjectsAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(projectsAdapter);

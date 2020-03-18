@@ -6,25 +6,27 @@ import javax.inject.Inject;
 import i.kozar.behance_mvp.common.BasePresenter;
 import i.kozar.behance_mvp.data.Storage;
 import i.kozar.behance_mvp.data.api.BehanceApi;
+import i.kozar.behance_mvp.di.AppComponent;
 import i.kozar.behance_mvp.utils.ApiUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import moxy.InjectViewState;
 
-public class UserProjectsPresenter extends BasePresenter {
-    private UserProjectsView userProjectsView;
+@InjectViewState
+public class UserProjectsPresenter extends BasePresenter<UserProjectsView> {
+    //private UserProjectsView userProjectsView;
     @Inject
     Storage storage;
     @Inject
     BehanceApi behanceApi;
 
-    @Inject
+    /*@Inject
     public UserProjectsPresenter() {
     }
 
     public void setView(UserProjectsView view){
         userProjectsView = view;
-    }
+    }*/
 
     public void getUserProjects(String username){
         compositeDisposable.add(behanceApi
@@ -34,10 +36,15 @@ public class UserProjectsPresenter extends BasePresenter {
                         ApiUtils.NETWORK_EXCEPTIONS.contains(throwable.getClass()) ? storage.getProjects() : null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> userProjectsView.showLoading())
-                .doFinally(() -> userProjectsView.hideLoading())
+                .doOnSubscribe(disposable -> getViewState().showLoading())
+                .doFinally(() -> getViewState().hideLoading())
                 .subscribe(
-                        response -> userProjectsView.showUserProjects(response.getProjects()),
-                        throwable -> userProjectsView.showError()));
+                        response -> getViewState().showUserProjects(response.getProjects()),
+                        throwable -> getViewState().showError()));
+    }
+
+    @Override
+    protected void inject(AppComponent component) {
+        component.inject(this);
     }
 }

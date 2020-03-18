@@ -40,14 +40,8 @@ public class ProfileFragment extends PresenterFragment
     private ImageView profileImage;
     private TextView profileName, profileCreatedOn, profileLocation;
 
-    @Inject
+    @InjectPresenter
     ProfilePresenter profilePresenter;
-
-    /*@ProvidePresenter
-    ProfilePresenter provideProfilePresentor() {
-        return new ProfilePresenter();
-    }
-    */
 
     @Override
     protected ProfilePresenter getPresenter() {
@@ -69,11 +63,11 @@ public class ProfileFragment extends PresenterFragment
         }
     }
 
-    @Override
+    /*@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppDelegate.getAppComponent().injectProfile(this);
-    }
+    }*/
 
     @Nullable
     @Override
@@ -106,7 +100,7 @@ public class ProfileFragment extends PresenterFragment
             getActivity().setTitle(username);
         }
 
-        profilePresenter.setView(this);
+        //profilePresenter.setView(this);
         profileView.setVisibility(View.VISIBLE);
 
         onRefreshData();

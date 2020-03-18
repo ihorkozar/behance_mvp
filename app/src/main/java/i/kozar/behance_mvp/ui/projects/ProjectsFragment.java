@@ -34,7 +34,7 @@ public class ProjectsFragment extends PresenterFragment
     private View errorView;
     private ProjectsAdapter projectsAdapter;
 
-    @Inject
+    @InjectPresenter
     ProjectsPresenter projectsPresenter;
 
     @Override
@@ -55,11 +55,11 @@ public class ProjectsFragment extends PresenterFragment
         }
     }
 
-    @Override
+    /*@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppDelegate.getAppComponent().injectProjects(this);
-    }
+    }*/
 
     @Nullable
     @Override
@@ -81,7 +81,7 @@ public class ProjectsFragment extends PresenterFragment
             getActivity().setTitle(R.string.projects);
         }
 
-        projectsPresenter.setView(this);
+        //projectsPresenter.setView(this);
         projectsAdapter = new ProjectsAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(projectsAdapter);
