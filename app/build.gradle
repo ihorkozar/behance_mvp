@@ -18,6 +18,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
+                        toothpick_registry_package_name: 'i.kozar.behance_mvp',
                         disableEmptyStrategyCheck: 'true'
                 ]
             }
@@ -69,8 +70,12 @@ dependencies {
     implementation "com.github.moxy-community:moxy-android:2.0.2"
     implementation "com.github.moxy-community:moxy-androidx:2.0.2"
 
-    implementation 'com.google.dagger:dagger-android:2.15'
-    implementation 'com.google.dagger:dagger-android-support:2.13'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
+    // ядро библиотеки
+    implementation 'com.github.stephanenicolas.toothpick:toothpick-runtime:3.1.0'
+    // плюшки для Android
+    implementation 'com.github.stephanenicolas.toothpick:smoothie-androidx:3.1.0'
+    // процессор аннотаций для генерации кода
+    annotationProcessor 'com.github.stephanenicolas.toothpick:toothpick-compiler:3.1.0'
+
 
 }

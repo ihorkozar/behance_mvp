@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import i.kozar.behance_mvp.common.BasePresenter;
 import i.kozar.behance_mvp.data.Storage;
 import i.kozar.behance_mvp.data.api.BehanceApi;
-import i.kozar.behance_mvp.di.AppComponent;
 import i.kozar.behance_mvp.utils.ApiUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -41,10 +40,5 @@ public class UserProjectsPresenter extends BasePresenter<UserProjectsView> {
                 .subscribe(
                         response -> getViewState().showUserProjects(response.getProjects()),
                         throwable -> getViewState().showError()));
-    }
-
-    @Override
-    protected void inject(AppComponent component) {
-        component.inject(this);
     }
 }

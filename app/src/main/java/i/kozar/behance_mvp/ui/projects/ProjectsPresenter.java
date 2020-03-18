@@ -5,27 +5,20 @@ import i.kozar.behance_mvp.BuildConfig;
 import i.kozar.behance_mvp.common.BasePresenter;
 import i.kozar.behance_mvp.data.Storage;
 import i.kozar.behance_mvp.data.api.BehanceApi;
-import i.kozar.behance_mvp.di.AppComponent;
 import i.kozar.behance_mvp.utils.ApiUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import moxy.InjectViewState;
+import moxy.presenter.ProvidePresenter;
 
 @InjectViewState
 public class ProjectsPresenter extends BasePresenter<ProjectsView> {
-    //private ProjectsView projectsView;
+
     @Inject
     Storage storage;
+
     @Inject
     BehanceApi behanceApi;
-
-    /*@Inject
-    public ProjectsPresenter() {
-    }*/
-
-    /*public void setView(ProjectsView view){
-        projectsView = view;
-    }*/
 
     public void getProjects() {
         compositeDisposable.add(
@@ -44,10 +37,5 @@ public class ProjectsPresenter extends BasePresenter<ProjectsView> {
 
     public void openProfileFragment(String username) {
         getViewState().openProfileFragment(username);
-    }
-
-    @Override
-    protected void inject(AppComponent component) {
-        component.inject(this);
     }
 }

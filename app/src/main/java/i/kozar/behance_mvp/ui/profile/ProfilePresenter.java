@@ -4,8 +4,6 @@ import javax.inject.Inject;
 import i.kozar.behance_mvp.common.BasePresenter;
 import i.kozar.behance_mvp.data.Storage;
 import i.kozar.behance_mvp.data.api.BehanceApi;
-import i.kozar.behance_mvp.di.AppComponent;
-import i.kozar.behance_mvp.ui.projects.ProjectsView;
 import i.kozar.behance_mvp.utils.ApiUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -47,10 +45,5 @@ public class ProfilePresenter extends BasePresenter<ProfileView> {
 
     public void openUserProjectsFragment(String username) {
         getViewState().openUserProjectsFragment(username);
-    }
-
-    @Override
-    protected void inject(AppComponent component) {
-        component.inject(this);
     }
 }

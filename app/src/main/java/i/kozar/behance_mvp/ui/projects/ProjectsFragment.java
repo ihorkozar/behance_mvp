@@ -25,6 +25,8 @@ import i.kozar.behance_mvp.ui.profile.ProfileActivity;
 import i.kozar.behance_mvp.ui.profile.ProfileFragment;
 import moxy.presenter.InjectPresenter;
 import moxy.presenter.ProvidePresenter;
+import toothpick.Scope;
+import toothpick.Toothpick;
 
 public class ProjectsFragment extends PresenterFragment
         implements ProjectsView, Refreshable, ProjectsAdapter.OnItemClickListener {
@@ -42,7 +44,6 @@ public class ProjectsFragment extends PresenterFragment
         return projectsPresenter;
     }
 
-
     public static ProjectsFragment newInstance() {
         return new ProjectsFragment();
     }
@@ -54,12 +55,6 @@ public class ProjectsFragment extends PresenterFragment
             refreshOwner = ((RefreshOwner) context);
         }
     }
-
-    /*@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        AppDelegate.getAppComponent().injectProjects(this);
-    }*/
 
     @Nullable
     @Override
@@ -82,6 +77,7 @@ public class ProjectsFragment extends PresenterFragment
         }
 
         //projectsPresenter.setView(this);
+        Toothpick.inject(this, AppDelegate.getAppScope());
         projectsAdapter = new ProjectsAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(projectsAdapter);
