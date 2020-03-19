@@ -2,8 +2,10 @@ package i.kozar.behance_mvp.common;
 
 
 import i.kozar.behance_mvp.AppDelegate;
+import i.kozar.behance_mvp.ui.projects.ProjectsPresenter;
 import io.reactivex.disposables.CompositeDisposable;
 import moxy.MvpPresenter;
+import moxy.presenter.ProvidePresenter;
 
 public abstract class BasePresenter<V extends BaseView> extends MvpPresenter<V> {
 
@@ -20,5 +22,4 @@ public abstract class BasePresenter<V extends BaseView> extends MvpPresenter<V> 
     }
 
     protected abstract void inject(AppComponent component);*/
-
 }

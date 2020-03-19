@@ -10,16 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
-
-import javax.inject.Inject;
-
 import i.kozar.behance_mvp.AppDelegate;
 import i.kozar.behance_mvp.R;
 import i.kozar.behance_mvp.common.BasePresenter;
 import i.kozar.behance_mvp.common.PresenterFragment;
 import i.kozar.behance_mvp.common.RefreshOwner;
 import i.kozar.behance_mvp.common.Refreshable;
-import i.kozar.behance_mvp.data.Storage;
 import i.kozar.behance_mvp.data.model.project.Project;
 import i.kozar.behance_mvp.ui.projects.ProjectsAdapter;
 import moxy.presenter.InjectPresenter;
@@ -39,6 +35,11 @@ public class UserProjectsFragment extends PresenterFragment
     @InjectPresenter
     UserProjectsPresenter userProjectsPresenter;
 
+    @ProvidePresenter
+    public UserProjectsPresenter providePresenter() {
+        return AppDelegate.getAppScope().getInstance(UserProjectsPresenter.class);
+    }
+
     public static UserProjectsFragment newInstance(Bundle args) {
         UserProjectsFragment userProjectsFragment = new UserProjectsFragment();
         userProjectsFragment.setArguments(args);
@@ -53,12 +54,6 @@ public class UserProjectsFragment extends PresenterFragment
             refreshOwner = ((RefreshOwner) context);
         }
     }
-
-    /*@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        AppDelegate.getAppComponent().injectUserProjects(this);
-    }*/
 
     @Nullable
     @Override

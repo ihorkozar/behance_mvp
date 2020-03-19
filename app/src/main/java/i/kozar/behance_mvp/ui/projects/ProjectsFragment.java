@@ -11,9 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import i.kozar.behance_mvp.AppDelegate;
 import i.kozar.behance_mvp.R;
 import i.kozar.behance_mvp.common.PresenterFragment;
@@ -38,6 +36,11 @@ public class ProjectsFragment extends PresenterFragment
 
     @InjectPresenter
     ProjectsPresenter projectsPresenter;
+
+    @ProvidePresenter
+    public ProjectsPresenter providePresenter() {
+        return AppDelegate.getAppScope().getInstance(ProjectsPresenter.class);
+    }
 
     @Override
     protected ProjectsPresenter getPresenter() {

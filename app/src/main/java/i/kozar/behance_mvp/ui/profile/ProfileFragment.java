@@ -22,6 +22,7 @@ import i.kozar.behance_mvp.common.RefreshOwner;
 import i.kozar.behance_mvp.common.Refreshable;
 import i.kozar.behance_mvp.data.Storage;
 import i.kozar.behance_mvp.data.model.user.User;
+import i.kozar.behance_mvp.ui.projects.ProjectsPresenter;
 import i.kozar.behance_mvp.ui.projects.user_projects.UserProjectsActivity;
 import i.kozar.behance_mvp.ui.projects.user_projects.UserProjectsFragment;
 import i.kozar.behance_mvp.utils.DateUtils;
@@ -42,6 +43,11 @@ public class ProfileFragment extends PresenterFragment
 
     @InjectPresenter
     ProfilePresenter profilePresenter;
+
+    @ProvidePresenter
+    public ProfilePresenter providePresenter() {
+        return AppDelegate.getAppScope().getInstance(ProfilePresenter.class);
+    }
 
     @Override
     protected ProfilePresenter getPresenter() {
